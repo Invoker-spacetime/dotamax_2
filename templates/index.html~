@@ -6,31 +6,36 @@
 {% block page_content %}
 <div class="page-header">
     <h3>Hello, Dotaer</h3>
+    <h5>请按照以下步骤进行，帮你选出最合适的英雄（由于时间仓促，没有把英雄的所有名称录入系统，请使用常用的中文名称）</h5>
 </div>
+
 
 <form class="form-inline" method="POST">
  	{{form.hidden_tag() }}
- 	<h5>TEAM</h5>
-	{{form.Teammate_1.label }}{{form.Teammate_1(id="exampleInputName2" ,placeholder="Queen of Pain")}}
-	{{form.Teammate_2.label }}{{form.Teammate_2(id="exampleInputName2" ,placeholder="Queen of Pain")}}
-	{{form.Teammate_3.label }}{{form.Teammate_3(id="exampleInputName2" ,placeholder="Queen of Pain")}}
-	{{form.Teammate_4.label }}{{form.Teammate_4(id="exampleInputName2" ,placeholder="Queen of Pain")}}
+ 	<h5>第一步：请选择你的队友</h5>
+	{{form.Teammate_1.label }}{{form.Teammate_1(id="exampleInputName2" ,placeholder="召唤师",size = 15)}}
+	{{form.Teammate_2.label }}{{form.Teammate_2(id="exampleInputName2" ,placeholder="兽王",size = 15)}}
+	{{form.Teammate_3.label }}{{form.Teammate_3(id="exampleInputName2" ,placeholder="影魔",size = 15)}}
+	{{form.Teammate_4.label }}{{form.Teammate_4(id="exampleInputName2" ,placeholder="风行者",size = 15)}}
 	<br/>
-	<h5>OPPO</h5>
-	{{form.Opponent_1.label }}{{form.Opponent_1(id="exampleInputName2" ,placeholder="Queen of Pain")}}
-	{{form.Opponent_2.label }}{{form.Opponent_2(id="exampleInputName2" ,placeholder="Queen of Pain")}}
-	{{form.Opponent_3.label }}{{form.Opponent_3(id="exampleInputName2" ,placeholder="Queen of Pain")}}
-	{{form.Opponent_4.label }}{{form.Opponent_4(id="exampleInputName2" ,placeholder="Queen of Pain")}}
-	<br/>	
-	{{form.Opponent_5.label }}{{form.Opponent_5(id="exampleInputName2" ,placeholder="Queen of Pain")}}
+	<h5></h5>
+	<h5>第二步：请选择你的对手</h5>
+	{{form.Opponent_1.label }}{{form.Opponent_1(id="exampleInputName2" ,placeholder="撼地神牛",size = 15)}}
+	{{form.Opponent_2.label }}{{form.Opponent_2(id="exampleInputName2" ,placeholder="幻影长矛手",size = 15)}}
+	{{form.Opponent_3.label }}{{form.Opponent_3(id="exampleInputName2" ,placeholder="天怒法师",size = 15)}}
+	{{form.Opponent_4.label }}{{form.Opponent_4(id="exampleInputName2" ,placeholder="骨弓",size = 15)}}		
+	{{form.Opponent_5.label }}{{form.Opponent_5(id="exampleInputName2" ,placeholder="潮汐猎人",size = 15)}}
 	<br/>
+	<h5>第三步：请选择策略</h5>
+	{{form.Select_Mode.label }}{{form.Select_Mode(id="exampleInputName2" )}}
+	<h5>第四步：请点击按钮，提交你的设定</h5>
   	{{form.submit}}
 </form>	
 
-
+<h5><strong>英雄列表</strong><h5>
 {% if Teammates_List %}
 	<h5>
-	TEAM:
+	你的队友:
 	{% for Teammate in Teammates_List %}
 		{{Teammate}}
 	{% endfor %}	
@@ -43,25 +48,56 @@
 {% if  Opponents_List %}
 
 	<h5>
-	OPPO:
+	你的对手:
 	{% for Opponent in Opponents_List%}
 		{{Opponent}}
 	{% endfor %}
 	</h5>	
 {% endif %}
 
-{% if  hero_best_list %}
+{% if  error_info  %}
+
+	<h5>
+	错误的英雄名称:
+	{% for error in error_info%}
+		{{error}}
+	{% endfor %}
+	</h5>	
+{% endif %}
+
+
+<h5>我们为你挑选出如下的英雄,请参考</h5>
+{% if  hero_best_list_1 %}
+	
 	<ul>		
-		<li>This hero is : {{hero_best_list['This hero is']}}</li>
-		<li>Hero rate : {{hero_best_list['Hero rate']}}</li>
-		<li>Hero rate up in this team : {{hero_best_list['Hero rate up in this team']}}</li>
-		<li>Hero rate up face this opps : {{hero_best_list['Hero rate up face this opps']}}</li>
-		<li>Hero mult rate up : {{hero_best_list['Hero mult rate up']}}</li>		
+		<li>第一名 : {{hero_best_list_1['This hero is']}}</li>
+		<li>在该对阵中的胜率 : {{hero_best_list_1['Hero rate']}}%</li>
+		<li>配合指数 : {{hero_best_list_1['Hero rate up in this team']}}%</li>
+		<li>针对指数 : {{hero_best_list_1['Hero rate up face this opps']}}%</li>
+		<li>英雄胜率将提升 : {{hero_best_list_1['Hero mult rate up']}}%</li>		
 	</ul>
 {% endif %}
 
-<h5>
-敌法师：Anti-Mage, 斧王：Axe, 痛苦之源：Bane, 血魔：Bloodseeker, 水晶室女：Crystal Maiden, 卓尔游侠：Drow Ranger, 撼地神牛：Earthshaker, 剑圣：Juggernaut, 米拉娜：Mirana, 变体精灵：Morphling, 影魔：Shadow Fiend, 幻影长矛手：Phantom Lancer, 帕克：Puck, 屠夫：Pudge, 剃刀：Razor, 沙王：Sand King, 风暴之灵：Storm Spirit, 流浪剑客：Sven, 山岭巨人：Tiny, 复仇之魂：Vengeful Spirit, 风行者：Windranger, 宙斯：Zeus, 昆卡：Kunkka, 莉娜：Lina, 莱恩：Lion, 暗影萨姆：Shadow Shaman, 斯拉达：Slardar, 潮汐猎人：Tidehunter, 巫医：Witch Doctor, 巫妖：Lich, 隐形刺客：Riki, 谜团：Enigma, 修补匠：Tinker, 狙击手：Sniper, 死灵法师：Necrophos, 术士：Warlock, 兽王：Beastmaster, 痛苦女王：Queen of Pain, 剧毒术士：Venomancer, 虚空假面：Faceless Void, 骷髅王：Wraith King, 死亡先知：Death Prophet, 幻影刺客：Phantom Assassin, 骨法：Pugna, 圣堂刺客：Templar Assassin, 毒龙：Viper, 露娜：Luna, 龙骑士：Dragon Knight, 戴泽：Dazzle, 发条技师：Clockwerk, 拉席克：Leshrac, 先知：Nature, 食尸鬼：Lifestealer, 黑暗贤者：Dark Seer, 骨弓：Clinkz, 全能骑士：Omniknight, 魅惑魔女：Enchantress, 哈斯卡：Huskar, 夜魔：Night Stalker, 育母蜘蛛：Broodmother, 赏金猎人：Bounty Hunter, 地穴编织者：Weaver, 双头龙：Jakiro, 蝙蝠骑士：Batrider, 陈：Chen, 幽鬼：Spectre, 远古冰魂：Ancient Apparition, 末日使者：Doom, 熊战士：Ursa, 灵魂行者：Spirit Breaker, 直升飞机：Gyrocopter, 炼金术士：Alchemist, 召唤师：Invoker, 沉默术士：Silencer, 黑鸟：Outworld Devourer, 狼人：Lycan, 酒仙：Brewmaster, 暗影恶魔：Shadow Demon, 德鲁伊：Lone Druid, 混沌骑士：Chaos Knight, 米波：Meepo", 树精卫士：Treant Protector, 食人魔魔法师：Ogre Magi, 尸王：Undying, 拉比克：Rubick, 干扰者：Disruptor, 地穴刺客：Nyx Assassin, 娜迦海妖：Naga Siren, 光之守卫：Keeper of the Light, 小精灵：Io, 维萨吉：Visage, 斯垃克：Slark, 美杜莎：Medusa", 巨魔战将：Troll Warlord, 半人马酋长：Centaur Warrunner, 马格纳斯：Magnus, 伐木机：Timbersaw, 钢背兽：Bristleback, 巨牙海民：Tusk, 天怒法师：Skywrath Mage, 死亡骑士：Abaddon, 上古巨神：Elder Titan, 军团指挥官：Legion Commander, 哥布林工程师：Techies, 灰烬之灵：Ember Spirit, 大地之灵：Earth Spirit, 灵魂守卫：Terrorblade, 凤凰：Phoenix, 神谕者：Oracle, 冰霜巨龙：Winter Wyvern, 天穹守望者：Arc Warden
-<h5>
+{% if  hero_best_list_2 %}
+	<ul>		
+		<li>第二名 : {{hero_best_list_2['This hero is']}}</li>
+		<li>在该对阵中的胜率 : {{hero_best_list_2['Hero rate']}}%</li>
+		<li>配合指数 : {{hero_best_list_2['Hero rate up in this team']}}%</li>
+		<li>针对指数 : {{hero_best_list_2['Hero rate up face this opps']}}%</li>
+		<li>英雄胜率将提升 : {{hero_best_list_2['Hero mult rate up']}}%</li>		
+	</ul>
+{% endif %}
+
+{% if  hero_best_list_3 %}
+	<ul>		
+		<li>第三名 : {{hero_best_list_3['This hero is']}}</li>
+		<li>在该对阵中的胜率 : {{hero_best_list_3['Hero rate']}}%</li>
+		<li>配合指数 : {{hero_best_list_3['Hero rate up in this team']}}%</li>
+		<li>针对指数 : {{hero_best_list_3['Hero rate up face this opps']}}%</li>
+		<li>英雄胜率将提升 : {{hero_best_list_3['Hero mult rate up']}}%</li>		
+	</ul>
+{% endif %}
+
+
 
 {% endblock %}

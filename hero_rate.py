@@ -1,10 +1,12 @@
 #hero_rate.py
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import urllib2
 import re
 import os
 from sql_hero import hero_sql
 
-re_hero = re.compile(r'''class="hero-name-list">([a-zA-Z\s\-\_]+)''') #
+re_hero = re.compile(r'''class="hero-name-list">([a-zA-Z\s\-\_']+)''') #
 re_rate_inteam = re.compile(r'''<div class="segment segment-gold" style="width:([0-9]+.[0-9]+)%''')
 re_rate = re.compile(r'''<div class="segment segment-green" style="width:([0-9]+.[0-9]+)%''')
 re_html_hero = re.compile('''\<tr onclick\=\"DoNav\(\'\/hero\/detail\/([a-z\_]+)''')#keeper_of_the_night
@@ -89,6 +91,4 @@ class hero(object):
 
 def list_dict(name,value):
 	return dict(zip(name,value))
-
-
 
