@@ -7,8 +7,9 @@ from flask.ext.moment import Moment
 from flask.ext.wtf import Form
 from wtforms import StringField, SubmitField,SelectField
 from wtforms.validators import Required
-from dotamax3 import Nice_Best_Hero,hero_data_after
+from dotamax3 import Nice_Best_Hero,hero_data_after,Get_Database
 import json
+from db_dota2 import  creat_allname_relate
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hard to guess string'
@@ -17,6 +18,10 @@ manager = Manager(app)
 bootstrap = Bootstrap(app)
 moment = Moment(app)
 
+@manager.command
+def update_database():
+	Get_Database(True)
+	creat_allname_relate()
 
 class NameForm(Form):
 	Teammate_1 = StringField('1')

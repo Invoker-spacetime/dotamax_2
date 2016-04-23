@@ -201,7 +201,7 @@ def  Get_Database(update):
 			context = f.read()
 		hero_url_dict = json.loads(context)
 
-
+	print 'hero number:',len(hero_list)
 	return hero_list ,hero_rate_dict , hero_url_dict
 
 
@@ -260,19 +260,19 @@ def eng_list_ch_list(eng_list):
 
 def ch_list_eng_list(ch_list):
 
-	with open ('database/ch_eng_dict.txt','rb') as f:
+	with open ('database/othername.txt','rb') as f:
 			context = f.read()
 	ch_eng_dict = json.loads(context)
 
-	with open ('database/ch_name.txt','rb') as f:
-			context = f.read()
-	ch_name = json.loads(context)
+	#with open ('database/ch_name.txt','rb') as f:
+	#		context = f.read()
+	#ch_name = json.loads(context)
 
 	eng_list = []
 	error_name = []
 		
 	for i in ch_list:
-		if i in ch_name:
+		if i in ch_eng_dict:
 			eng_list.append(ch_eng_dict[i])
 		elif i != '':
 			error_name.append(i)	
